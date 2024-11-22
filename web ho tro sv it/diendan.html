@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="3HKT">
+    <meta name="keywords" content="Trang hỗ trợ học tập cho sinh viên công nghệ thông tin">
+    <link rel="stylesheet" href="style.css">
+    <title>Diễn đàn - Hỗ trợ học tập</title>
+</head>
+
+<body>
+    <header>
+        <img src="./images/logo.png" alt="Logo 3HKT">
+        <h1>Diễn Đàn</h1>
+    </header>
+
+    <main>
+        <!-- Menu điều hướng -->
+        <nav>
+            <ul>
+                <!-- Nhớ thêm link Các File Vào Đây Nha -->
+                <li><a href="#" id="home-link">Trang chủ</a></li> 
+                <li><a href="#">Thư viện</a></li>
+                <li><a href="#" id="forum-link" style="color: #00509e;">Diễn đàn</a></li>
+                <li><a href="#">Lịch học</a></li>
+                <li><a href="#">Khung code</a></li>
+            </ul>
+        </nav>
+
+        <!-- Nội dung diễn đàn (Trang chủ) -->
+        <section id="forum-section" class="forum">
+            <h2>Diễn đàn thảo luận công nghệ thông tin</h2>
+
+            <!-- Danh sách các chủ đề -->
+            <div class="topics" id="topics">
+                <!-- Các chủ đề được thêm từ JavaScript -->
+            </div>
+
+            <!-- Biểu mẫu đăng bài -->
+            <div class="new-topic-form">
+                <h3>Tạo bài viết mới</h3>
+                <form onsubmit="addTopic(event)">
+                    <input id="title" type="text" placeholder="Tiêu đề bài viết" required>
+                    <textarea id="content" rows="5" placeholder="Nội dung bài viết" required></textarea>
+                    <button type="submit">Đăng bài</button>
+                </form>
+            </div>
+
+             <!-- Phần tìm kiếm nằm bên trái -->
+        <div class="search-sidebar">
+            <h3>Tìm kiếm chủ đề</h3>
+            <form id="search-form">
+                <label><input type="checkbox" name="category" value="AI"> Trí tuệ nhân tạo (AI)</label><br>
+                <label><input type="checkbox" name="category" value="Web Development"> Phát triển Web</label><br>
+                <label><input type="checkbox" name="category" value="Cybersecurity"> An ninh mạng</label><br>
+                <label><input type="checkbox" name="category" value="Cloud Computing"> Công nghệ Đám mây</label><br>
+                <label><input type="checkbox" name="category" value="Big Data"> Dữ liệu lớn (Big Data)</label><br>
+                <label><input type="checkbox" name="category" value="C/C++"> Ngôn ngữ C/C++</label>
+            </form>
+        </div>
+
+        </section>
+
+        <!-- Nội dung chi tiết bài viết -->
+        <section id="post-section" class="post" style="display: none;">
+            <!-- Nội dung bài viết sẽ được thêm qua JavaScript -->
+        </section>
+
+        <form type="checkbox"></form>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
