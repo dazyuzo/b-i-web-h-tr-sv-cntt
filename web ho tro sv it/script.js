@@ -1,90 +1,80 @@
-// Dữ liệu bài viết mẫu
-const topics = [
-    { id: 1, title: "Lập trình C++ cơ bản", content: "Thảo luận về các khái niệm cơ bản trong lập trình C++.", category: "C/C++" },
-    { id: 2, title: "Frontend Development", content: "Chia sẻ tài liệu và kinh nghiệm học HTML, CSS, và JavaScript.", category: "Web Development" },
-    { id: 3, title: "Công nghệ AI", content: "Những xu hướng mới nhất trong AI và Machine Learning.", category: "AI" },
+// Đây là danh sách bài viết mẫu
+const samplePosts = [
+    { title: 'Cách học C++ hiệu quả', content: 'Học C++ có thể gặp rất nhiều khó khăn, nhưng có những phương pháp học hiệu quả để nắm vững kiến thức.', topic: 'cpp' },
+    { title: 'Cơ sở dữ liệu MySQL', content: 'MySQL là hệ quản trị cơ sở dữ liệu phổ biến. Cùng tìm hiểu cách làm việc với MySQL.', topic: 'mysql' },
+    { title: 'HTML và CSS cơ bản', content: 'HTML và CSS là nền tảng để xây dựng các trang web. Hãy cùng học cách tạo giao diện đơn giản.', topic: 'html' },
+    { title: 'Cách tối ưu hóa C++', content: 'Một số chiến lược tối ưu hóa C++ giúp chương trình chạy nhanh hơn và tiết kiệm tài nguyên.', topic: 'cpp' },
+    { title: 'Lập trình web với HTML', content: 'Tìm hiểu cách sử dụng HTML để xây dựng các trang web đơn giản.', topic: 'html' }
 ];
 
-// Lấy ID từ URL (nếu có)
-const urlParams = new URLSearchParams(window.location.search);
-const topicId = parseInt(urlParams.get("id"));
+// Hàm tìm kiếm bài viết
+function searchPosts() {
+    // Lấy giá trị từ ô tìm kiếm chủ đề
+    const searchQuery = document.getElementById('searchMenu').value; // Chủ đề tìm kiếm
+    // Lấy từ khóa người dùng nhập vào ô tìm kiếm
+    const keyword = document.getElementById('searchInput').value.toLowerCase(); // Từ khóa tìm kiếm, chuyển thành chữ thường
 
-// Kiểm tra xem có phải trang chi tiết không
-const isDetailPage = topicId > 0;
+    // Lọc ra các bài viết phù hợp với từ khóa và chủ đề
+    const filteredPosts = samplePosts.filter(post => {
+        // Kiểm tra xem tiêu đề bài viết có chứa từ khóa không
+        const titleMatch = post.title.toLowerCase().includes(keyword); 
+        // Kiểm tra xem nội dung bài viết có chứa từ khóa không
+        const contentMatch = post.content.toLowerCase().includes(keyword); 
+        // Kiểm tra xem bài viết có chủ đề phù hợp không (hoặc là tất cả)
+        const topicMatch = (searchQuery === 'all') || (post.topic === searchQuery); 
 
-// Hiển thị phần phù hợp
-if (isDetailPage) {
-    // Hiện chi tiết nội dung bài viết và ẩn diễn đàn
-    document.getElementById("forum-section").style.display = "none";
-    document.getElementById("post-section").style.display = "block";
+        // Trả về bài viết nếu tiêu đề, nội dung hoặc chủ đề phù hợp
+        return (titleMatch || contentMatch) && topicMatch;
+    });
 
-    // Tìm bài viết 
-    const topic = topics.find(t => t.id === topicId);
-    const postSection = document.getElementById("post-section");
+    // Hiển thị lại các bài viết sau khi lọc
+    displayPosts(filteredPosts);
+}
 
-    if (topic) {
-        postSection.innerHTML = `
-            <h2>${topic.title}</h2>
-            <p>${topic.content}</p>
+// Hàm hiển thị danh sách bài viết
+function displayPosts(posts) {
+    const discussionBoard = document.getElementById('discussionBoard');
+    // Chuyển danh sách bài viết thành HTML và hiển thị
+    discussionBoard.innerHTML = posts.map(post => {
+        return `
+            <div class="discussion-item">
+                <h4>${post.title}</h4>
+                <p>${post.content.substring(0, 100)}...</p> <!-- Cắt 100 ký tự đầu tiên của nội dung -->
+                <a href="#" onclick="viewPostDetail('${post.title}')">Đọc thêm</a>
+            </div>
         `;
-    } else {
-        postSection.innerHTML = "<p>Bài viết không tồn tại.</p>";
+    }).join('');
+}
+
+// Hàm xem chi tiết bài viết khi nhấp vào "Đọc thêm"
+function viewPostDetail(title) {
+    // Tìm bài viết theo tiêu đề
+    const post = samplePosts.find(p => p.title === title);
+    if (post) {
+        // Hiển thị chi tiết bài viết trong một thông báo
+        alert(`Tiêu đề: ${post.title}\nNội dung: ${post.content}`);
     }
-} else {
-    // Nếu không phải trang chi tiết, hiển thị danh sách chủ đề diễn đàn
-    document.getElementById("forum-section").style.display = "block";
-    document.getElementById("post-section").style.display = "none";
-
-    // Hiển thị danh sách các chủ đề
-    displayTopics(topics);
 }
 
-// Thêm chủ đề mới
-function addTopic(event) {
-    event.preventDefault();
-    const title = document.getElementById("title").value;
-    const content = document.getElementById("content").value;
-    const category = document.querySelector('input[name="category"]:checked')?.value || 'Chưa phân loại';
-    const newTopic = { id: topics.length + 1, title, content, category };
+// Hiển thị tất cả bài viết khi trang được tải
+displayPosts(samplePosts);
 
-    // Thêm vào danh sách và cập nhật
-    topics.push(newTopic);
-    displayTopics(topics);
+// Xử lý sự kiện khi người dùng thêm bài viết mới
+document.getElementById('newPostForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Ngừng hành động mặc định khi gửi form
 
-    // Xóa nội dung sau khi đăng
-    document.getElementById("title").value = "";
-    document.getElementById("content").value = "";
-}
-
-// Hàm hiển thị chủ đề
-function displayTopics(topicsList) {
-    const topicsContainer = document.getElementById("topics");
-    topicsContainer.innerHTML = ''; // Xóa nội dung cũ
-
-    topicsList.forEach(topic => {
-        const topicElement = document.createElement("div");
-        topicElement.classList.add("topic");
-        topicElement.innerHTML = `
-            <h3><a href="?id=${topic.id}">${topic.title}</a></h3>
-            <p>${topic.content}</p>
-        `;
-        topicsContainer.appendChild(topicElement);
-    });
-}
-
-// Tính năng tìm kiếm
-function searchTopics() {
-    const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(input => input.value);
+    // Lấy các giá trị từ form nhập liệu
+    const title = document.getElementById('postTitle').value; 
+    const content = document.getElementById('postContent').value;
+    const topic = document.getElementById('postTopic').value;
     
-    // Lọc các chủ đề dựa trên lựa chọn
-    const filteredTopics = topics.filter(topic => {
-        if (selectedCategories.length === 0) return true; // Nếu không chọn gì, hiển thị tất cả
-        return selectedCategories.includes(topic.category);
-    });
+    // Thêm bài viết mới vào danh sách
+    samplePosts.push({ title, content, topic });
+    // Cập nhật danh sách bài viết sau khi thêm bài mới
+    displayPosts(samplePosts);
 
-    // Hiển thị kết quả lọc
-    displayTopics(filteredTopics);
-}
-
-// Thêm sự kiện cho phần tìm kiếm
-document.getElementById("search-form").addEventListener("change", searchTopics);
+    // Reset các trường trong form sau khi thêm bài viết mới
+    document.getElementById('postTitle').value = '';
+    document.getElementById('postContent').value = '';
+    document.getElementById('postTopic').value = 'cpp'; // Đặt mặc định chủ đề là C++
+});

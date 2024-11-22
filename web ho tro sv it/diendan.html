@@ -7,7 +7,7 @@
     <meta name="author" content="3HKT">
     <meta name="keywords" content="Trang hỗ trợ học tập cho sinh viên công nghệ thông tin">
     <link rel="stylesheet" href="style.css">
-    <title>Diễn đàn - Hỗ trợ học tập</title>
+    <title>Trang Diễn Đàn</title>
 </head>
 
 <body>
@@ -16,60 +16,69 @@
         <h1>Diễn Đàn</h1>
     </header>
 
+    <nav>
+        <ul>
+            <li><a href="Trangchu.html">Trang chủ</a></li>
+            <li><a href="trangthuvien.html">Thư viện</a></li>
+            <li><a href="diendan.html">Diễn đàn</a></li>
+            <li><a href="tranglichhoc.html">Lịch học</a></li>
+            <li><a href="KhungCode.html">Khung code</a></li>
+        </ul>
+    </nav>
+
     <main>
-        <!-- Menu điều hướng -->
-        <nav>
-            <ul>
-                <!-- Nhớ thêm link Các File Vào Đây Nha -->
-                <li><a href="#" id="home-link">Trang chủ</a></li> 
-                <li><a href="#">Thư viện</a></li>
-                <li><a href="#" id="forum-link" style="color: #00509e;">Diễn đàn</a></li>
-                <li><a href="#">Lịch học</a></li>
-                <li><a href="#">Khung code</a></li>
-            </ul>
-        </nav>
+        <h2>Chào mừng bạn đến với Diễn Đàn Học Tập!</h2>
 
-        <!-- Nội dung diễn đàn (Trang chủ) -->
-        <section id="forum-section" class="forum">
-            <h2>Diễn đàn thảo luận công nghệ thông tin</h2>
-
-            <!-- Danh sách các chủ đề -->
-            <div class="topics" id="topics">
-                <!-- Các chủ đề được thêm từ JavaScript -->
-            </div>
-
-            <!-- Biểu mẫu đăng bài -->
-            <div class="new-topic-form">
-                <h3>Tạo bài viết mới</h3>
-                <form onsubmit="addTopic(event)">
-                    <input id="title" type="text" placeholder="Tiêu đề bài viết" required>
-                    <textarea id="content" rows="5" placeholder="Nội dung bài viết" required></textarea>
-                    <button type="submit">Đăng bài</button>
-                </form>
-            </div>
-
-             <!-- Phần tìm kiếm nằm bên trái -->
-        <div class="search-sidebar">
-            <h3>Tìm kiếm chủ đề</h3>
-            <form id="search-form">
-                <label><input type="checkbox" name="category" value="AI"> Trí tuệ nhân tạo (AI)</label><br>
-                <label><input type="checkbox" name="category" value="Web Development"> Phát triển Web</label><br>
-                <label><input type="checkbox" name="category" value="Cybersecurity"> An ninh mạng</label><br>
-                <label><input type="checkbox" name="category" value="Cloud Computing"> Công nghệ Đám mây</label><br>
-                <label><input type="checkbox" name="category" value="Big Data"> Dữ liệu lớn (Big Data)</label><br>
-                <label><input type="checkbox" name="category" value="C/C++"> Ngôn ngữ C/C++</label>
-            </form>
+        <!-- Menu tìm kiếm -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm...">
+            <select id="searchMenu">
+                <option value="all">Tìm kiếm theo chủ đề</option>
+                <option value="cpp">Lập trình C++</option>
+                <option value="html">Lập trình HTML</option>
+                <option value="mysql">Cơ sở dữ liệu MySQL</option>
+            </select>
+            <button onclick="searchPosts()">Tìm kiếm</button>
         </div>
 
-        </section>
+        <div class="section">
+            <h3>Giới Thiệu về Diễn Đàn</h3>
+            <p>Diễn đàn này được tạo ra để sinh viên ngành Công nghệ Thông tin có thể chia sẻ kiến thức, thảo luận về các vấn đề học tập và trao đổi kinh nghiệm trong các lĩnh vực công nghệ. Đây là nơi để bạn học hỏi và giúp đỡ lẫn nhau cùng phát triển.</p>
+        </div>
 
-        <!-- Nội dung chi tiết bài viết -->
-        <section id="post-section" class="post" style="display: none;">
-            <!-- Nội dung bài viết sẽ được thêm qua JavaScript -->
-        </section>
+        <div class="section">
+            <h3>Các Chủ Đề Thảo Luận Mới Nhất</h3>
+            <div class="discussion-board" id="discussionBoard">
+                <!-- Các bài viết mẫu sẽ hiển thị tại đây -->
+            </div>
+        </div>
 
-        <form type="checkbox"></form>
+        <!-- Phần thêm bài viết -->
+<div class="section add-post-section">
+    <h3>Bài Viết Mới </h3>
+    <form id="newPostForm">
+        <label for="postTitle">Tiêu đề:</label>
+        <input type="text" id="postTitle" required>
+
+        <label for="postContent">Nội dung:</label>
+        <textarea id="postContent" rows="6" required></textarea>
+
+        <label for="postTopic">Chủ đề:</label>
+        <select id="postTopic" required>
+            <option value="cpp">Lập trình C++</option>
+            <option value="html">Lập trình HTML</option>
+            <option value="mysql">Cơ sở dữ liệu MySQL</option>
+        </select>
+
+        <button type="submit">Thêm bài viết</button>
+    </form>
+</div>
+
     </main>
+
+    <footer>
+        <p>&copy; 2024 3HKT. All rights reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
